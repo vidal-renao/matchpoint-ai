@@ -99,19 +99,22 @@ create trigger trg_candidates_updated_at
 -- RLS
 alter table candidates enable row level security;
 
--- Candidates can read their own records
+-- Candidates can read their own records.
+-- Note: user_id is null for anonymous uploads — readable by anyone who knows the UUID.
+-- The 128-bit UUID space makes enumeration infeasible.
 create policy "candidates_select_own"
   on candidates for select
   using (auth.uid() = user_id or user_id is null);
 
--- Server (service role) can insert
-create policy "candidates_insert_service"
-  on candidates for insert
-  with check (true);
+-- INSERT and UPDATE via server-side service role only.
+-- Service role bypasses RLS entirely — no policy needed.
+-- Explicitly deny direct insert from browser clients (anon / authenticated).
+-- If there is no insert policy, RLS blocks anon and authenticated inserts automatically.
 
--- Candidates can update only their own
+-- Candidates can update only their own (authenticated users updating their linked record)
 create policy "candidates_update_own"
   on candidates for update
+  to authenticated
   using (auth.uid() = user_id);
 
 -- ============================================================================
@@ -238,17 +241,13 @@ create policy "matches_select_own"
     exists (
       select 1 from candidates c
       where c.id = matches.candidate_id
-        and c.user_id = auth.uid()
+        and (c.user_id = auth.uid() or c.user_id is null)
     )
   );
 
-create policy "matches_insert_service"
-  on matches for insert
-  with check (true);
-
-create policy "matches_update_service"
-  on matches for update
-  using (true);
+-- INSERT and UPDATE are performed exclusively by the server via service role key.
+-- Service role bypasses RLS — no permissive insert/update policies needed here.
+-- Omitting these policies blocks direct writes from browser clients (anon / authenticated).
 
 -- ============================================================================
 -- STORAGE BUCKET (run via Supabase Dashboard or CLI)
