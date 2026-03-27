@@ -11,13 +11,14 @@ import { useCallback } from 'react';
 import en from '@/messages/en.json';
 import es from '@/messages/es.json';
 import de from '@/messages/de.json';
+import it from '@/messages/it.json';
 
-export type Locale = 'en' | 'es' | 'de';
-export const SUPPORTED_LOCALES: Locale[] = ['en', 'es', 'de'];
+export type Locale = 'en' | 'es' | 'de' | 'it';
+export const SUPPORTED_LOCALES: Locale[] = ['en', 'es', 'de', 'it'];
 export const DEFAULT_LOCALE: Locale = 'es';
 
 type Messages = typeof en;
-const messages: Record<Locale, Messages> = { en, es, de };
+const messages: Record<Locale, Messages> = { en, es, de, it: it as unknown as Messages };
 
 function getNestedValue(obj: Record<string, unknown>, path: string): string {
   let current: unknown = obj;

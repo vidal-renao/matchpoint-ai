@@ -14,7 +14,7 @@ interface Props {
 
 export default async function ApplicationsPage({ params }: Props) {
   const { locale: raw } = await params;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
 
   const result = await getApplicationsForUser();
 

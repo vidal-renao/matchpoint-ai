@@ -1,0 +1,107 @@
+{
+  "common": {
+    "appName": "MatchPoint AI",
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "retry": "Riprova",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "back": "Indietro",
+    "noData": "Nessun dato disponibile"
+  },
+  "upload": {
+    "title": "Carica il tuo CV",
+    "subtitle": "La nostra IA analizzerà il tuo profilo in pochi secondi",
+    "dragActive": "Rilascia il file qui",
+    "dragPrompt": "Trascina il tuo CV qui",
+    "orBrowse": "o clicca per sfogliare",
+    "supportedFormats": "PDF, PNG, JPEG — max 10 MB",
+    "uploading": "Caricamento in corso...",
+    "analyzing": "Analisi del CV in corso...",
+    "success": "CV elaborato con successo",
+    "error": "Errore nell'elaborazione del CV",
+    "tryAgain": "Riprova",
+    "viewProfile": "Vedi i miei match",
+    "fileSelected": "File selezionato",
+    "removeFile": "Rimuovi file",
+    "submit": "Analizza CV"
+  },
+  "analysis": {
+    "step1": "Ricezione documento...",
+    "step2": "Lettura esperienza lavorativa...",
+    "step3": "Identificazione tecnologie...",
+    "step4": "Estrazione info di contatto...",
+    "step5": "Creazione profilo...",
+    "confidence": "Affidabilità",
+    "extractedSkills": "Competenze rilevate",
+    "extractedName": "Nome",
+    "extractedEmail": "Email"
+  },
+  "profile": {
+    "title": "Il tuo Profilo",
+    "subtitle": "Dati estratti dal tuo CV tramite IA",
+    "status": "Stato",
+    "statusLabels": {
+      "pending": "In attesa",
+      "extracting": "Estrazione dati...",
+      "extracted": "Dati estratti",
+      "review_needed": "Pronto per il matching...",
+      "enriching": "Analisi match in corso...",
+      "ready": "Profilo completo",
+      "failed": "Analisi fallita"
+    },
+    "sections": {
+      "contact": "Contatto",
+      "skills": "Competenze chiave",
+      "experience": "Esperienza lavorativa",
+      "education": "Formazione",
+      "languages": "Lingue",
+      "certifications": "Certificazioni"
+    },
+    "noSkills": "Nessuna competenza rilevata",
+    "noExperience": "Nessuna esperienza rilevata",
+    "noEducation": "Nessuna formazione rilevata",
+    "yearsExp": "{count} anni di esperienza",
+    "currentPosition": "Attuale",
+    "failureReason": "Motivo errore",
+    "uploadNew": "Carica nuovo CV",
+    "lastUpdated": "Ultimo aggiornamento"
+  },
+  "matches": {
+    "greeting": "MatchPoint AI",
+    "title": "I tuoi match,",
+    "subtitle": "L'IA ha confrontato il tuo profilo con le posizioni disponibili su più dimensioni.",
+    "match": "match",
+    "seeMore": "Vedi dettagli",
+    "seeLess": "Nascondi",
+    "strengths": "Punti di forza",
+    "gaps": "Aree di miglioramento",
+    "requiredSkills": "Competenze richieste",
+    "level": {
+      "strong": "Match forte",
+      "good": "Buon match",
+      "partial": "Match parziale",
+      "poor": "Match basso"
+    },
+    "dimension": {
+      "hardSkills": "Hard Skills",
+      "experience": "Esperienza",
+      "culture": "Cultura",
+      "logistics": "Logistica"
+    },
+    "filter": {
+      "all": "Tutti"
+    },
+    "stats": {
+      "total": "posizioni",
+      "strong": "match forte",
+      "good": "buon match",
+      "avgScore": "punteggio medio"
+    },
+    "empty": {
+      "noMatches": "Nessun match disponibile",
+      "noFilter": "Nessun match in questa categoria",
+      "hint": "Il motore di matching analizza il tuo profilo automaticamente. Ricontrolla tra qualche minuto."
+    }
+  }
+}

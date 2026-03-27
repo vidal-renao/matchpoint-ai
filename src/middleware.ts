@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const LOCALES = ['es', 'en', 'de'];
+const LOCALES = ['es', 'en', 'de', 'it'];
 const PROTECTED_SEGMENTS = ['/upload', '/profile', '/matches', '/applications', '/admin', '/agency'];
 
 export async function middleware(request: NextRequest) {

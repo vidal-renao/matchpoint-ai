@@ -13,13 +13,13 @@ interface Props { params: Promise<{ locale: string }> }
 
 export default async function PostJobPage({ params }: Props) {
   const { locale: raw } = await params;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
 
   const agency = await requireAgency(locale);
 
   return (
     <>
-      <Header locale={locale} />
+      <Header locale={locale} section="agency" />
       <div className="relative min-h-screen bg-base text-text font-body antialiased">
         <div className="ambient-glow" />
         <div className="max-w-[720px] mx-auto px-6 pt-28 pb-20">

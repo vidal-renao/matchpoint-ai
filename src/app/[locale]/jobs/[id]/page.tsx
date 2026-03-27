@@ -34,7 +34,7 @@ const REMOTE_LABELS: Record<string, string> = {
 
 export default async function JobDetailPage({ params }: Props) {
   const { locale: raw, id } = await params;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
 
   const job = await getJobById(id);
   if (!job) notFound();

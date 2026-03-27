@@ -18,7 +18,7 @@ function getAdminEmails(): string[] {
 
 export default async function AdminLayout({ children, params }: Props) {
   const { locale: raw } = await params;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
 
   try {
     const supabase = await createClient();

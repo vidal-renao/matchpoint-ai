@@ -1,4 +1,5 @@
 import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { getFeaturedJobs, getJobCountBySector } from '@/lib/actions/jobs';
 import { SECTORS } from '@/lib/constants/jobs';
 import { LandingSearch } from '@/components/jobs/LandingSearch';
@@ -10,7 +11,7 @@ interface Props { params: Promise<{ locale: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale: raw } = await params;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
   return {
     title: 'MatchPoint AI — Find Your Perfect Job, Matched by Intelligence',
     description: 'AI-powered job board. Upload your CV once and get automatically matched to roles across Technology, Finance, Healthcare and more.',
@@ -49,7 +50,7 @@ const TRUST_LOGOS = ['Accenture', 'Deloitte', 'Roche', 'Siemens', 'Nestlé', 'AB
 
 export default async function LandingPage({ params }: Props) {
   const { locale: raw } = await params;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
 
   const [featuredJobs, sectorCounts] = await Promise.all([
     getFeaturedJobs(8),
@@ -226,55 +227,7 @@ export default async function LandingPage({ params }: Props) {
           </div>
         </section>
 
-        {/* ── Footer ── */}
-        <footer className="border-t border-border-subtle py-10 px-6">
-          <div className="max-w-[1200px] mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-              <div>
-                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">For Candidates</p>
-                <div className="flex flex-col gap-2">
-                  <a href={`/${locale}/jobs`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Browse Jobs</a>
-                  <a href={`/${locale}/upload`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Upload CV</a>
-                  <a href={`/${locale}/matches`} className="text-xs text-text-dim hover:text-text-muted transition-colors">My Matches</a>
-                  <a href={`/${locale}/applications`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Applications</a>
-                </div>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">For Employers</p>
-                <div className="flex flex-col gap-2">
-                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Post a Job</a>
-                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">AI Screening</a>
-                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Pricing</a>
-                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Enterprise</a>
-                </div>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">Sectors</p>
-                <div className="flex flex-col gap-2">
-                  {SECTORS.slice(0, 5).map((s) => (
-                    <a key={s.key} href={`/${locale}/jobs?sector=${s.key}`} className="text-xs text-text-dim hover:text-text-muted transition-colors">
-                      {s.icon} {s.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">More Sectors</p>
-                <div className="flex flex-col gap-2">
-                  {SECTORS.slice(5).map((s) => (
-                    <a key={s.key} href={`/${locale}/jobs?sector=${s.key}`} className="text-xs text-text-dim hover:text-text-muted transition-colors">
-                      {s.icon} {s.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="border-t border-border-subtle pt-6 flex flex-wrap items-center justify-between gap-3">
-              <span className="font-display text-sm text-text-dim">MatchPoint AI</span>
-              <span className="text-xs text-text-dim">Powered by Claude Sonnet 4.6 · Next.js · Supabase · © 2026</span>
-            </div>
-          </div>
-        </footer>
+        <Footer locale={locale} />
       </div>
     </>
   );

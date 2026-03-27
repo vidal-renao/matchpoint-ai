@@ -37,7 +37,7 @@ function getServiceClient() {
 export default async function JobsPage({ params, searchParams }: Props) {
   const { locale: raw } = await params;
   const { sector, search, remote, page } = await searchParams;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
 
   const currentPage = Math.max(1, Number(page ?? 1));
   const limit = 20;

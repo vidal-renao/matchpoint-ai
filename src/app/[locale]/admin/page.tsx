@@ -17,7 +17,7 @@ interface Props {
 export default async function AdminPage({ params, searchParams }: Props) {
   const { locale: raw } = await params;
   const { job: jobId, minScore: minScoreRaw } = await searchParams;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
   const minScore = minScoreRaw ? Math.max(0, Math.min(100, Number(minScoreRaw))) : 90;
 
   const [eliteResult, jobsResult] = await Promise.all([

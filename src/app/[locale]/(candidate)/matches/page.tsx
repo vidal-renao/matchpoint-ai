@@ -19,7 +19,7 @@ interface MatchesPageProps {
 export default async function MatchesPage({ params, searchParams }: MatchesPageProps) {
   const { locale: raw } = await params;
   const { id } = await searchParams;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
   const t = getTranslations(locale);
 
   // Try session-based lookup first, fall back to ?id= param

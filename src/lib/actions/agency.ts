@@ -68,6 +68,7 @@ export interface PostJobPayload {
   salary_min: number | null;
   salary_max: number | null;
   salary_currency: string;
+  salary_period?: string;
   sector: string;
 }
 
@@ -222,6 +223,7 @@ export async function postJobForAgency(
         salary_min: payload.salary_min,
         salary_max: payload.salary_max,
         salary_currency: payload.salary_currency || 'EUR',
+        salary_period: payload.salary_period || 'annual',
         employer_email: user.email,
         agency_id: agencyId,
         source: 'agency',

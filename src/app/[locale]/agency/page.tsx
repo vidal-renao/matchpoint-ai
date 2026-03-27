@@ -17,7 +17,7 @@ interface Props {
 export default async function AgencyPage({ params, searchParams }: Props) {
   const { locale: raw } = await params;
   const { job: jobId, minScore: minScoreRaw } = await searchParams;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
   const minScore = minScoreRaw ? Math.max(0, Math.min(100, Number(minScoreRaw))) : 75;
 
   const agency = await requireAgency(locale);
@@ -29,7 +29,7 @@ export default async function AgencyPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <Header locale={locale} />
+      <Header locale={locale} section="agency" />
       <div className="relative min-h-screen bg-base text-text font-body antialiased">
         <div className="ambient-glow" />
         <AgencyDashboard

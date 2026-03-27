@@ -16,7 +16,7 @@ interface Props {
 
 export default async function ProfileEditPage({ params }: Props) {
   const { locale: raw } = await params;
-  const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
+  const locale = ((['en', 'es', 'de', 'it'].includes(raw) ? raw : 'es')) as Locale;
 
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

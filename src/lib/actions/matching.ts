@@ -140,14 +140,14 @@ export async function runMatchingForCandidate(
 
     if (cErr || !candidate) return { success: false, error: 'Candidate not found' };
 
-    // Fetch active jobs (top 20 by recency)
+    // Fetch active jobs — all sectors, sorted by recency
     const { data: jobs, error: jErr } = await supabase
       .from('jobs')
       .select('*')
       .eq('status', 'active')
       .is('deleted_at', null)
       .order('created_at', { ascending: false })
-      .limit(20);
+      .limit(50);
 
     if (jErr || !jobs?.length) return { success: false, error: 'No active jobs found' };
 
