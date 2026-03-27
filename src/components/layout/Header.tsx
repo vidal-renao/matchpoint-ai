@@ -25,6 +25,12 @@ export function Header({ locale }: HeaderProps) {
 
   const initial = user?.email?.[0].toUpperCase() ?? '?';
 
+  const adminEmails = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? '')
+    .split(',')
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+  const isAdmin = !!user?.email && adminEmails.includes(user.email.toLowerCase());
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border-subtle bg-base/80 backdrop-blur-xl">
       <div className="max-w-[1200px] mx-auto px-6 h-14 flex items-center justify-between">
@@ -53,6 +59,14 @@ export function Header({ locale }: HeaderProps) {
                 <a href={`/${locale}/profile`} className="text-sm text-text-muted hover:text-text transition-colors px-3 py-1.5">
                   Profile
                 </a>
+                {isAdmin && (
+                  <a
+                    href={`/${locale}/admin`}
+                    className="text-sm font-medium px-3 py-1.5 rounded-lg bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20 transition-all"
+                  >
+                    Panel Jefe
+                  </a>
+                )}
                 <div className="flex items-center gap-2 ml-2 pl-4 border-l border-border-subtle">
                   <div className="w-8 h-8 rounded-full bg-accent/15 border border-accent/25 flex items-center justify-center">
                     <span className="text-xs font-medium text-accent">{initial}</span>
