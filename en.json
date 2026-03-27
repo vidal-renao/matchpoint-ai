@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "MatchPoint AI",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "back": "Go back",
+    "noData": "No data available"
+  },
+  "upload": {
+    "title": "Upload your CV",
+    "subtitle": "Our AI will analyze your profile in seconds",
+    "dragActive": "Drop your file here",
+    "dragPrompt": "Drag your CV here",
+    "orBrowse": "or click to browse",
+    "supportedFormats": "PDF, PNG, JPEG — max 10 MB",
+    "uploading": "Uploading file...",
+    "analyzing": "Analyzing your CV...",
+    "success": "CV processed successfully",
+    "error": "Error processing CV",
+    "tryAgain": "Try again",
+    "viewProfile": "View my profile",
+    "fileSelected": "File selected",
+    "removeFile": "Remove file",
+    "submit": "Analyze CV"
+  },
+  "analysis": {
+    "step1": "Receiving document...",
+    "step2": "Reading work experience...",
+    "step3": "Identifying technologies...",
+    "step4": "Extracting contact info...",
+    "step5": "Building your profile...",
+    "confidence": "Extraction confidence",
+    "extractedSkills": "Detected skills",
+    "extractedName": "Detected name",
+    "extractedEmail": "Detected email"
+  },
+  "profile": {
+    "title": "Your Profile",
+    "subtitle": "Data extracted from your CV by AI",
+    "status": "Profile status",
+    "statusLabels": {
+      "pending": "Pending",
+      "extracting": "Extracting data...",
+      "extracted": "Data extracted",
+      "enriching": "Enriching profile...",
+      "ready": "Profile complete",
+      "failed": "Analysis failed"
+    },
+    "sections": {
+      "contact": "Contact information",
+      "skills": "Key skills",
+      "experience": "Work experience",
+      "education": "Education",
+      "languages": "Languages",
+      "certifications": "Certifications"
+    },
+    "noSkills": "No skills detected yet",
+    "noExperience": "No experience detected yet",
+    "noEducation": "No education detected yet",
+    "yearsExp": "{count} years of experience",
+    "currentPosition": "Current",
+    "failureReason": "Failure reason",
+    "uploadNew": "Upload new CV",
+    "lastUpdated": "Last updated"
+  },
+  "matches": {
+    "greeting": "MatchPoint AI",
+    "title": "Your matches,",
+    "subtitle": "AI has analyzed your profile against available positions. Here are your dimensional results.",
+    "match": "match",
+    "seeMore": "See details",
+    "seeLess": "Hide details",
+    "strengths": "Strengths",
+    "gaps": "Areas to improve",
+    "requiredSkills": "Required skills",
+    "level": {
+      "strong": "Strong match",
+      "good": "Good match",
+      "partial": "Partial match",
+      "poor": "Low match"
+    },
+    "dimension": {
+      "hardSkills": "Hard Skills",
+      "experience": "Experience",
+      "culture": "Culture",
+      "logistics": "Logistics"
+    },
+    "filter": {
+      "all": "All"
+    },
+    "stats": {
+      "total": "positions",
+      "strong": "strong match",
+      "good": "good match",
+      "avgScore": "avg. score"
+    },
+    "empty": {
+      "noMatches": "No matches available yet",
+      "noFilter": "No matches in this category",
+      "hint": "Upload your CV so AI can analyze your profile against available positions."
+    }
+  }
+}

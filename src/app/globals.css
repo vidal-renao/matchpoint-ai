@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base: #050505;
+  --color-surface: #0f0f0f;
+  --color-surface-raised: #1a1a1a;
+  --color-border: #1f1f1f;
+  --color-border-subtle: #161616;
+  --color-text: #F5F5F4;
+  --color-text-muted: #8A8A94;
+  --color-text-dim: #5A5A64;
+  --color-accent: #f59e0b;
+  --color-accent-hover: #d97706;
+  --color-accent-glow: #78350f;
+  --color-success: #22C55E;
+  --color-error: #EF4444;
+  --color-blue: #3B82F6;
+
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+
+  --radius-card: 16px;
+  --radius-sm: 10px;
+}
+
+html {
+  background-color: var(--color-base);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.glass {
+  background: color-mix(in oklch, var(--color-surface) 80%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid color-mix(in oklch, var(--color-border) 50%, transparent);
+}
+
+.ambient-glow {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(245,158,11,0.1) 0%, transparent 65%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}

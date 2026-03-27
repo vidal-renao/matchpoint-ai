@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "MatchPoint AI",
+    "loading": "Wird geladen...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Erneut versuchen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "back": "Zurück",
+    "noData": "Keine Daten verfügbar"
+  },
+  "upload": {
+    "title": "Lebenslauf hochladen",
+    "subtitle": "Unsere KI analysiert dein Profil in Sekunden",
+    "dragActive": "Datei hier ablegen",
+    "dragPrompt": "Lebenslauf hierher ziehen",
+    "orBrowse": "oder klicken zum Durchsuchen",
+    "supportedFormats": "PDF, PNG, JPEG — max. 10 MB",
+    "uploading": "Datei wird hochgeladen...",
+    "analyzing": "Lebenslauf wird analysiert...",
+    "success": "Lebenslauf erfolgreich verarbeitet",
+    "error": "Fehler beim Verarbeiten des Lebenslaufs",
+    "tryAgain": "Erneut versuchen",
+    "viewProfile": "Mein Profil ansehen",
+    "fileSelected": "Datei ausgewählt",
+    "removeFile": "Datei entfernen",
+    "submit": "Lebenslauf analysieren"
+  },
+  "analysis": {
+    "step1": "Dokument wird empfangen...",
+    "step2": "Berufserfahrung wird gelesen...",
+    "step3": "Technologien werden identifiziert...",
+    "step4": "Kontaktdaten werden extrahiert...",
+    "step5": "Profil wird erstellt...",
+    "confidence": "Extraktionsvertrauen",
+    "extractedSkills": "Erkannte Fähigkeiten",
+    "extractedName": "Erkannter Name",
+    "extractedEmail": "Erkannte E-Mail"
+  },
+  "profile": {
+    "title": "Dein Profil",
+    "subtitle": "Von KI aus deinem Lebenslauf extrahierte Daten",
+    "status": "Profilstatus",
+    "statusLabels": {
+      "pending": "Ausstehend",
+      "extracting": "Daten werden extrahiert...",
+      "extracted": "Daten extrahiert",
+      "enriching": "Profil wird angereichert...",
+      "ready": "Profil vollständig",
+      "failed": "Analyse fehlgeschlagen"
+    },
+    "sections": {
+      "contact": "Kontaktdaten",
+      "skills": "Kernkompetenzen",
+      "experience": "Berufserfahrung",
+      "education": "Ausbildung",
+      "languages": "Sprachen",
+      "certifications": "Zertifizierungen"
+    },
+    "noSkills": "Noch keine Fähigkeiten erkannt",
+    "noExperience": "Noch keine Erfahrung erkannt",
+    "noEducation": "Noch keine Ausbildung erkannt",
+    "yearsExp": "{count} Jahre Erfahrung",
+    "currentPosition": "Aktuell",
+    "failureReason": "Fehlergrund",
+    "uploadNew": "Neuen Lebenslauf hochladen",
+    "lastUpdated": "Zuletzt aktualisiert"
+  },
+  "matches": {
+    "greeting": "MatchPoint AI",
+    "title": "Deine Matches,",
+    "subtitle": "Die KI hat dein Profil mit den verfügbaren Stellen verglichen. Hier sind deine dimensionalen Ergebnisse.",
+    "match": "Match",
+    "seeMore": "Details anzeigen",
+    "seeLess": "Details ausblenden",
+    "strengths": "Stärken",
+    "gaps": "Verbesserungsbereiche",
+    "requiredSkills": "Erforderliche Fähigkeiten",
+    "level": {
+      "strong": "Starkes Match",
+      "good": "Gutes Match",
+      "partial": "Teilweises Match",
+      "poor": "Schwaches Match"
+    },
+    "dimension": {
+      "hardSkills": "Hard Skills",
+      "experience": "Erfahrung",
+      "culture": "Kultur",
+      "logistics": "Logistik"
+    },
+    "filter": {
+      "all": "Alle"
+    },
+    "stats": {
+      "total": "Stellen",
+      "strong": "starkes Match",
+      "good": "gutes Match",
+      "avgScore": "Ø Punktzahl"
+    },
+    "empty": {
+      "noMatches": "Noch keine Matches verfügbar",
+      "noFilter": "Keine Matches in dieser Kategorie",
+      "hint": "Lade deinen Lebenslauf hoch, damit die KI dein Profil mit verfügbaren Stellen abgleichen kann."
+    }
+  }
+}

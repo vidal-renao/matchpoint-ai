@@ -1,0 +1,106 @@
+{
+  "common": {
+    "appName": "MatchPoint AI",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "retry": "Reintentar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "back": "Volver",
+    "noData": "Sin datos disponibles"
+  },
+  "upload": {
+    "title": "Sube tu CV",
+    "subtitle": "Nuestra IA analizará tu perfil en segundos",
+    "dragActive": "Suelta el archivo aquí",
+    "dragPrompt": "Arrastra tu CV aquí",
+    "orBrowse": "o haz clic para buscar",
+    "supportedFormats": "PDF, PNG, JPEG — máx. 10 MB",
+    "uploading": "Subiendo archivo...",
+    "analyzing": "Analizando tu CV...",
+    "success": "CV procesado correctamente",
+    "error": "Error al procesar el CV",
+    "tryAgain": "Intentar de nuevo",
+    "viewProfile": "Ver mi perfil",
+    "fileSelected": "Archivo seleccionado",
+    "removeFile": "Eliminar archivo",
+    "submit": "Analizar CV"
+  },
+  "analysis": {
+    "step1": "Recibiendo documento...",
+    "step2": "Leyendo experiencia laboral...",
+    "step3": "Identificando tecnologías...",
+    "step4": "Extrayendo datos de contacto...",
+    "step5": "Generando perfil...",
+    "confidence": "Confianza de la extracción",
+    "extractedSkills": "Skills detectados",
+    "extractedName": "Nombre detectado",
+    "extractedEmail": "Email detectado"
+  },
+  "profile": {
+    "title": "Tu Perfil",
+    "subtitle": "Datos extraídos de tu CV por IA",
+    "status": "Estado del perfil",
+    "statusLabels": {
+      "pending": "Pendiente",
+      "extracting": "Extrayendo datos...",
+      "extracted": "Datos extraídos",
+      "enriching": "Enriqueciendo perfil...",
+      "ready": "Perfil completo",
+      "failed": "Error en el análisis"
+    },
+    "sections": {
+      "contact": "Datos de contacto",
+      "skills": "Habilidades principales",
+      "experience": "Experiencia laboral",
+      "education": "Formación académica",
+      "languages": "Idiomas",
+      "certifications": "Certificaciones"
+    },
+    "noSkills": "No se han detectado habilidades aún",
+    "noExperience": "No se ha detectado experiencia aún",
+    "noEducation": "No se ha detectado formación aún",
+    "yearsExp": "{count} años de experiencia",
+    "currentPosition": "Actual",
+    "failureReason": "Motivo del error",
+    "uploadNew": "Subir nuevo CV",
+    "lastUpdated": "Última actualización"
+  },
+  "matches": {
+    "greeting": "MatchPoint AI",
+    "title": "Tus matches,",
+    "subtitle": "La IA ha analizado tu perfil contra las ofertas disponibles. Estos son tus resultados dimensionales.",
+    "match": "match",
+    "seeMore": "Ver detalle",
+    "seeLess": "Ocultar detalle",
+    "strengths": "Puntos fuertes",
+    "gaps": "Áreas de mejora",
+    "requiredSkills": "Skills requeridos",
+    "level": {
+      "strong": "Match fuerte",
+      "good": "Buen match",
+      "partial": "Match parcial",
+      "poor": "Match bajo"
+    },
+    "dimension": {
+      "hardSkills": "Hard Skills",
+      "experience": "Experiencia",
+      "culture": "Cultura",
+      "logistics": "Logística"
+    },
+    "filter": {
+      "all": "Todos"
+    },
+    "stats": {
+      "total": "ofertas",
+      "strong": "match fuerte",
+      "good": "buen match",
+      "avgScore": "puntuación media"
+    },
+    "empty": {
+      "noMatches": "Aún no hay matches disponibles",
+      "noFilter": "No hay matches en esta categoría",
+      "hint": "Sube tu CV para que la IA analice tu perfil contra las ofertas disponibles."
+    }
+  }
+}
