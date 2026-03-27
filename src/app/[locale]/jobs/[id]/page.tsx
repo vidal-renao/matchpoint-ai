@@ -41,13 +41,14 @@ export default async function JobDetailPage({ params }: Props) {
 
   // Resolve auth state (no redirect — public page)
   let candidateId: string | null = null;
-  let hasCV = false;
+  let isLoggedIn = false;
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
+      isLoggedIn = true;
       const candidate = await getCandidateByUserId(user.id);
-      if (candidate) { candidateId = candidate.id; hasCV = true; }
+      if (candidate) candidateId = candidate.id;
     }
   } catch { /* not authenticated */ }
 
@@ -167,9 +168,11 @@ export default async function JobDetailPage({ params }: Props) {
                 <div>
                   <p className="text-xs uppercase tracking-widest text-text-dim mb-1">AI Match Score</p>
                   <p className="text-sm text-text-muted">
-                    {hasCV
+                    {candidateId
                       ? 'Apply and get instantly scored against this role.'
-                      : 'Upload your CV to see how well you match this role before applying.'}
+                      : isLoggedIn
+                      ? 'Upload your CV to see how well you match this role before applying.'
+                      : 'Create a free account to apply. AI scores you instantly.'}
                   </p>
                 </div>
 
@@ -177,7 +180,7 @@ export default async function JobDetailPage({ params }: Props) {
                   jobId={job.id}
                   candidateId={candidateId}
                   locale={locale}
-                  hasCV={hasCV}
+                  isLoggedIn={isLoggedIn}
                 />
 
                 <div className="border-t border-border-subtle pt-4 flex flex-col gap-2">
