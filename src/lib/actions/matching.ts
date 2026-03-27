@@ -14,6 +14,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
+import { sendHighScoreMatchEmail } from '@/lib/email/resend';
 import type {
   Candidate,
   Job,
@@ -31,7 +32,9 @@ function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error('Missing Supabase env vars');
-  return createClient(url, key);
+  return createClient(url, key, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
 }
 
 function getAnthropic() {
@@ -184,8 +187,42 @@ export async function runMatchingForCandidate(
             { onConflict: 'candidate_id,job_id' }
           );
 
-        if (!upsertErr) matchesCreated++;
-        else console.warn(`[matching] upsert failed for job ${job.id}:`, upsertErr.message);
+        if (!upsertErr) {
+          matchesCreated++;
+
+          // Fire email notification when score ≥ 90 (deduped via notification_log)
+          if (analysis.overall_score >= 90 && (candidate as Candidate).email) {
+            const { data: matchRow } = await supabase
+              .from('matches')
+              .select('id')
+              .eq('candidate_id', candidateId)
+              .eq('job_id', job.id)
+              .single();
+
+            if (matchRow?.id) {
+              const { error: logErr } = await supabase
+                .from('notification_log')
+                .insert({
+                  candidate_id: candidateId,
+                  match_id: matchRow.id,
+                  event_type: 'high_score_match',
+                });
+
+              // Only send if insert succeeded (unique constraint prevents duplicates)
+              if (!logErr) {
+                sendHighScoreMatchEmail({
+                  to: (candidate as Candidate).email!,
+                  candidateName: (candidate as Candidate).full_name,
+                  jobTitle: job.title,
+                  company: job.company,
+                  overallScore: analysis.overall_score,
+                }).catch((err) => console.warn('[email] send failed:', err));
+              }
+            }
+          }
+        } else {
+          console.warn(`[matching] upsert failed for job ${job.id}:`, upsertErr.message);
+        }
       } catch (jobErr) {
         console.warn(`[matching] job ${job.id} failed:`, jobErr);
       }

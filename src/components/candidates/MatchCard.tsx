@@ -6,16 +6,18 @@
 // ui-ux-pro-max: framer-motion expand/collapse, no jank
 // ============================================================================
 
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslations, type Locale } from '@/lib/i18n';
 import { cn } from '@/lib/utils';
+import { applyToJob } from '@/lib/actions/applications';
 import type { MatchWithJob } from '@/types/database';
 
 interface MatchCardProps {
   match: MatchWithJob;
   locale: Locale;
   index: number;
+  candidateId: string;
 }
 
 const REC_CONFIG = {
@@ -100,10 +102,24 @@ function DimensionBar({
   );
 }
 
-export function MatchCard({ match, locale, index }: MatchCardProps) {
+export function MatchCard({ match, locale, index, candidateId }: MatchCardProps) {
   const t = useTranslations(locale);
   const [expanded, setExpanded] = useState(false);
+  const [applied, setApplied] = useState(false);
+  const [applyError, setApplyError] = useState('');
+  const [isPending, startTransition] = useTransition();
   const cfg = REC_CONFIG[match.recommendation] ?? REC_CONFIG.partial_match;
+
+  const handleApply = () => {
+    startTransition(async () => {
+      const result = await applyToJob(candidateId, match.job_id, match.id);
+      if (result.success) {
+        setApplied(true);
+      } else {
+        setApplyError(result.error ?? 'Failed to apply.');
+      }
+    });
+  };
 
   const salary = match.job.salary_min
     ? `${match.job.salary_currency ?? 'USD'} ${Math.round(match.job.salary_min / 1000)}k${match.job.salary_max ? `–${Math.round(match.job.salary_max / 1000)}k` : '+'}`
@@ -190,12 +206,32 @@ export function MatchCard({ match, locale, index }: MatchCardProps) {
         ))}
       </div>
 
-      {/* Expand toggle */}
-      <button
-        onClick={() => setExpanded((v) => !v)}
-        className="mt-4 flex items-center gap-1.5 text-[11px] text-text-dim hover:text-text-muted transition-colors"
-        aria-expanded={expanded}
-      >
+      {/* Apply button */}
+      <div className="mt-4 flex items-center justify-between gap-3">
+        {applied ? (
+          <span className="text-xs text-success flex items-center gap-1.5">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7l4 4 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Applied
+          </span>
+        ) : (
+          <button
+            onClick={handleApply}
+            disabled={isPending}
+            className="text-xs px-4 py-1.5 rounded-lg border border-accent/30 text-accent hover:bg-accent/10 transition-all disabled:opacity-50"
+          >
+            {isPending ? 'Applying…' : 'Apply'}
+          </button>
+        )}
+        {applyError && <span className="text-[11px] text-error">{applyError}</span>}
+
+        {/* Expand toggle */}
+        <button
+          onClick={() => setExpanded((v) => !v)}
+          className="flex items-center gap-1.5 text-[11px] text-text-dim hover:text-text-muted transition-colors ml-auto"
+          aria-expanded={expanded}
+        >
         {expanded ? t('matches.seeLess') : t('matches.seeMore')}
         <motion.svg
           width="14" height="14" viewBox="0 0 14 14" fill="none"
@@ -203,7 +239,8 @@ export function MatchCard({ match, locale, index }: MatchCardProps) {
         >
           <path d="M3 5l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </motion.svg>
-      </button>
+        </button>
+      </div>
 
       {/* Expanded content */}
       <AnimatePresence>

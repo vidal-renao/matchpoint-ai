@@ -119,6 +119,7 @@ export interface Job {
   salary_min: number | null;
   salary_max: number | null;
   salary_currency: string;
+  employer_email: string | null;
   status: JobStatus;
   created_at: string;
   updated_at: string;
@@ -186,4 +187,41 @@ export interface GetMatchesResult {
   success: boolean;
   matches?: MatchWithJob[];
   error?: string;
+}
+
+// ---------------------------------------------------------------------------
+// Applications Pipeline (Phase 4)
+// ---------------------------------------------------------------------------
+
+export type ApplicationStage =
+  | 'applied'
+  | 'shortlisted'
+  | 'filter_passed'
+  | 'interview_passed'
+  | 'offer_sent'
+  | 'hired'
+  | 'rejected';
+
+export interface Application {
+  id: string;
+  candidate_id: string;
+  job_id: string;
+  match_id: string | null;
+  stage: ApplicationStage;
+  notes: string | null;
+  stage_updated_at: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ApplicationWithJob extends Application {
+  job: Job;
+}
+
+export interface NotificationLog {
+  id: string;
+  candidate_id: string;
+  match_id: string;
+  event_type: string;
+  sent_at: string;
 }

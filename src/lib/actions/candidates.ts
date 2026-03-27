@@ -12,6 +12,7 @@
 'use server';
 
 import { createClient } from '@supabase/supabase-js';
+import { createClient as createServerClient } from '@/lib/supabase/server';
 import Anthropic from '@anthropic-ai/sdk';
 import type {
   Candidate,
@@ -28,7 +29,9 @@ function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error('Missing Supabase env vars');
-  return createClient(url, key);
+  return createClient(url, key, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
 }
 
 function getAnthropic() {
@@ -139,7 +142,15 @@ export async function uploadAndExtractCv(formData: FormData): Promise<UploadCvRe
 
     if (uploadErr) return { success: false, error: 'Storage upload failed.' };
 
-    // 3. Create candidate record (status: extracting)
+    // 3. Resolve the authenticated user (optional — anonymous uploads still allowed)
+    let userId: string | null = null;
+    try {
+      const serverClient = await createServerClient();
+      const { data: { user } } = await serverClient.auth.getUser();
+      userId = user?.id ?? null;
+    } catch { /* no session — anonymous upload */ }
+
+    // 4. Create candidate record (status: extracting)
     const { data: candidate, error: insertErr } = await supabase
       .from('candidates')
       .insert({
@@ -152,14 +163,18 @@ export async function uploadAndExtractCv(formData: FormData): Promise<UploadCvRe
         salary_currency: 'USD',
         source: 'upload',
         tags: [],
+        ...(userId ? { user_id: userId } : {}),
       })
       .select('id')
       .single();
 
-    if (insertErr || !candidate) return { success: false, error: 'DB insert failed.' };
+    if (insertErr || !candidate) {
+      console.error('[uploadAndExtractCv] insert error:', insertErr);
+      return { success: false, error: insertErr?.message ?? 'DB insert failed.' };
+    }
     candidateId = candidate.id;
 
-    // 4. Call Claude — multi-modal (PDF doc block or image vision)
+    // 5. Call Claude — multi-modal (PDF doc block or image vision)
     const anthropic = getAnthropic();
     const base64 = fileBuffer.toString('base64');
 
@@ -174,10 +189,10 @@ export async function uploadAndExtractCv(formData: FormData): Promise<UploadCvRe
             { type: 'text', text: EXTRACTION_PROMPT },
           ];
 
-    // 5. Parse with Schema Guard (retry once on bad JSON)
+    // 6. Parse with Schema Guard (retry once on bad JSON)
     const extraction = await parseExtractionWithRetry(anthropic, msgContent);
 
-    // 6. Update candidate — status → review_needed (triggers matching engine)
+    // 7. Update candidate — status → review_needed (triggers matching engine)
     const { error: updateErr } = await supabase
       .from('candidates')
       .update({
@@ -222,6 +237,20 @@ export async function getCandidateById(id: string): Promise<Candidate | null> {
     .single();
 
   if (error) { console.error('[getCandidateById]', error); return null; }
+  return data as Candidate;
+}
+
+export async function getCandidateByUserId(userId: string): Promise<Candidate | null> {
+  const { data, error } = await getSupabase()
+    .from('candidates')
+    .select('*')
+    .eq('user_id', userId)
+    .is('deleted_at', null)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+
+  if (error) { console.error('[getCandidateByUserId]', error); return null; }
   return data as Candidate;
 }
 

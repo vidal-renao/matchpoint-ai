@@ -17,6 +17,7 @@ interface MatchesClientProps {
   matches: MatchWithJob[];
   locale: Locale;
   candidateName: string;
+  candidateId: string;
 }
 
 const FILTERS: { key: FilterLevel; labelKey: string; color: string }[] = [
@@ -34,7 +35,7 @@ const containerVariants = {
   exit:   {},
 };
 
-export function MatchesClient({ matches, locale, candidateName }: MatchesClientProps) {
+export function MatchesClient({ matches, locale, candidateName, candidateId }: MatchesClientProps) {
   const t = useTranslations(locale);
   const [filter, setFilter] = useState<FilterLevel>('all');
 
@@ -155,7 +156,7 @@ export function MatchesClient({ matches, locale, candidateName }: MatchesClientP
               className="flex flex-col gap-4"
             >
               {filtered.map((match, idx) => (
-                <MatchCard key={match.id} match={match} locale={locale} index={idx} />
+                <MatchCard key={match.id} match={match} locale={locale} index={idx} candidateId={candidateId} />
               ))}
             </motion.div>
           ) : (

@@ -224,13 +224,18 @@ export function ProfileClient({ candidate: initial, locale }: ProfileClientProps
         )}
 
         {/* Footer */}
-        <footer className="flex justify-between items-center pt-2">
+        <footer className="flex flex-wrap justify-between items-center gap-3 pt-2">
           <p className="text-xs text-text-dim">
             {t('profile.lastUpdated')}: {new Date(candidate.updated_at).toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
-          <a href={`/${locale}/`} className="text-xs text-text-dim border border-border px-3 py-1.5 rounded-lg hover:text-text-muted hover:border-text-dim transition-colors">
-            {t('profile.uploadNew')}
-          </a>
+          <div className="flex items-center gap-2">
+            <a href={`/${locale}/profile/edit`} className="text-xs text-accent border border-accent/30 px-3 py-1.5 rounded-lg hover:bg-accent/10 transition-colors">
+              Edit Profile
+            </a>
+            <a href={`/${locale}/matches`} className="text-xs text-text-dim border border-border px-3 py-1.5 rounded-lg hover:text-text-muted hover:border-text-dim transition-colors">
+              View Matches →
+            </a>
+          </div>
         </footer>
       </motion.div>
     </div>
