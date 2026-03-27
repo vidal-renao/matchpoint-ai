@@ -1,5 +1,6 @@
 import { Header } from '@/components/layout/Header';
-import { listJobs, SECTORS } from '@/lib/actions/jobs';
+import { listJobs } from '@/lib/actions/jobs';
+import { SECTORS } from '@/lib/constants/jobs';
 import { JobsGrid } from '@/components/jobs/JobsGrid';
 import { JobFilters } from '@/components/jobs/JobFilters';
 import type { Locale } from '@/lib/i18n';

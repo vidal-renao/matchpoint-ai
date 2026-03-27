@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { SECTORS } from '@/lib/actions/jobs';
+import { SECTORS } from '@/lib/constants/jobs';
 import type { Locale } from '@/lib/i18n';
 
 interface Props {

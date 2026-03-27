@@ -1,5 +1,6 @@
 import { Header } from '@/components/layout/Header';
-import { getFeaturedJobs, getJobCountBySector, SECTORS } from '@/lib/actions/jobs';
+import { getFeaturedJobs, getJobCountBySector } from '@/lib/actions/jobs';
+import { SECTORS } from '@/lib/constants/jobs';
 import { LandingSearch } from '@/components/jobs/LandingSearch';
 import { FeaturedJobCard } from '@/components/jobs/FeaturedJobCard';
 import type { Locale } from '@/lib/i18n';

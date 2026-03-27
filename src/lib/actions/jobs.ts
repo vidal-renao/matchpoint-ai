@@ -8,21 +8,8 @@
 
 import { createClient } from '@supabase/supabase-js';
 import type { Job } from '@/types/database';
-
-export const SECTORS = [
-  { key: 'technology',    label: 'Technology',       icon: '💻' },
-  { key: 'finance',       label: 'Finance & Banking', icon: '💰' },
-  { key: 'healthcare',    label: 'Healthcare',        icon: '🏥' },
-  { key: 'marketing',     label: 'Marketing & Sales', icon: '📊' },
-  { key: 'engineering',   label: 'Engineering',       icon: '⚙️' },
-  { key: 'construction',  label: 'Construction',      icon: '🏗️' },
-  { key: 'education',     label: 'Education',         icon: '📚' },
-  { key: 'hospitality',   label: 'Hospitality',       icon: '🍽️' },
-  { key: 'logistics',     label: 'Logistics',         icon: '🚚' },
-  { key: 'legal',         label: 'Legal',             icon: '⚖️' },
-] as const;
-
-export type SectorKey = typeof SECTORS[number]['key'];
+import { SECTORS } from '@/lib/constants/jobs';
+import type { SectorKey } from '@/lib/constants/jobs';
 
 export interface JobWithSector extends Job {
   sector: string | null;
