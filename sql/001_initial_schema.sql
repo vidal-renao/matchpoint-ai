@@ -13,7 +13,6 @@
 
 -- Enable required extensions
 create extension if not exists "uuid-ossp";
-create extension if not exists "vector";  -- pgvector for semantic similarity
 
 -- ============================================================================
 -- CANDIDATES
@@ -53,9 +52,6 @@ create table candidates (
   years_of_experience integer,
   seniority_level     text,
 
-  -- Semantic vector (dimension: 1536 for OpenAI-compatible models)
-  skills_vector       vector(1536),
-
   -- Processing pipeline
   processing_status   processing_status not null default 'pending',
   failure_reason      text,
@@ -78,10 +74,6 @@ create index idx_candidates_created_at       on candidates (created_at desc);
 create index idx_candidates_skills           on candidates using gin (skills);
 create index idx_candidates_tags             on candidates using gin (tags);
 create index idx_candidates_deleted_at       on candidates (deleted_at) where deleted_at is null;
-
--- Vector index for semantic skill matching (IVFFlat, tune lists based on dataset size)
-create index idx_candidates_skills_vector    on candidates using ivfflat (skills_vector vector_cosine_ops)
-  with (lists = 100);
 
 -- Auto-update updated_at
 create or replace function update_updated_at()
@@ -144,9 +136,6 @@ create table jobs (
   salary_max          integer,
   salary_currency     text not null default 'USD',
 
-  -- Semantic vector
-  description_vector  vector(1536),
-
   -- Status
   status              job_status not null default 'active',
 
@@ -161,9 +150,6 @@ create index idx_jobs_status              on jobs (status);
 create index idx_jobs_created_at          on jobs (created_at desc);
 create index idx_jobs_required_skills     on jobs using gin (required_skills);
 create index idx_jobs_deleted_at          on jobs (deleted_at) where deleted_at is null;
-create index idx_jobs_description_vector  on jobs using ivfflat (description_vector vector_cosine_ops)
-  with (lists = 100);
-
 create trigger trg_jobs_updated_at
   before update on jobs
   for each row execute function update_updated_at();
