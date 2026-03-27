@@ -2,7 +2,7 @@ import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 const LOCALES = ['es', 'en', 'de'];
-const PROTECTED_SEGMENTS = ['/upload', '/profile', '/matches', '/applications', '/admin'];
+const PROTECTED_SEGMENTS = ['/upload', '/profile', '/matches', '/applications', '/admin', '/agency'];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
