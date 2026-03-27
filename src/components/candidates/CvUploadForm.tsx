@@ -37,14 +37,16 @@ const FILE_ICONS: Record<string, string> = {
   'image/webp': '🖼️',
 };
 
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const cardVariants = {
   hidden: { opacity: 0, y: 20, scale: 0.98 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: EASE } },
 };
 
 const phaseVariants = {
   hidden: { opacity: 0, y: 12 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASE } },
   exit:   { opacity: 0, y: -12, transition: { duration: 0.25 } },
 };
 

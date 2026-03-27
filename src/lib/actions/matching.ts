@@ -15,6 +15,7 @@
 import { createClient } from '@supabase/supabase-js';
 import Anthropic from '@anthropic-ai/sdk';
 import { sendHighScoreMatchEmail } from '@/lib/email/resend';
+import { sendAdminWhatsAppAlert } from '@/lib/notifications/whatsapp';
 import type {
   Candidate,
   Job,
@@ -210,13 +211,43 @@ export async function runMatchingForCandidate(
 
               // Only send if insert succeeded (unique constraint prevents duplicates)
               if (!logErr) {
-                sendHighScoreMatchEmail({
-                  to: (candidate as Candidate).email!,
-                  candidateName: (candidate as Candidate).full_name,
+                const c = candidate as Candidate;
+
+                // 1. Email to candidate
+                if (c.email) {
+                  sendHighScoreMatchEmail({
+                    to: c.email,
+                    candidateName: c.full_name,
+                    jobTitle: job.title,
+                    company: job.company,
+                    overallScore: analysis.overall_score,
+                  }).catch((err) => console.warn('[email] send failed:', err));
+                }
+
+                // 2. WhatsApp alert to admin
+                sendAdminWhatsAppAlert({
+                  candidateName: c.full_name,
+                  candidateEmail: c.email,
                   jobTitle: job.title,
                   company: job.company,
                   overallScore: analysis.overall_score,
-                }).catch((err) => console.warn('[email] send failed:', err));
+                  hardSkillsScore: analysis.hard_skills.score,
+                  experienceScore: analysis.experience.score,
+                  cultureScore: analysis.culture.score,
+                  logisticsScore: analysis.logistics.score,
+                  recommendation: analysis.recommendation,
+                }).catch((err) => console.warn('[whatsapp] send failed:', err));
+
+                // 3. Mark candidate as ready_for_hire via tags (no extra column needed)
+                supabase
+                  .from('candidates')
+                  .update({
+                    tags: [...new Set([...(c.tags ?? []), 'ready_for_hire'])],
+                  })
+                  .eq('id', candidateId)
+                  .then(({ error: tagErr }) => {
+                    if (tagErr) console.warn('[ready_for_hire] tag failed:', tagErr.message);
+                  });
               }
             }
           }
