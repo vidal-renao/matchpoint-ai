@@ -120,6 +120,8 @@ export interface Job {
   salary_max: number | null;
   salary_currency: string;
   employer_email: string | null;
+  apply_url: string | null;
+  source: string;
   status: JobStatus;
   created_at: string;
   updated_at: string;

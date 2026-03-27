@@ -2,7 +2,7 @@ import { Header } from '@/components/layout/Header';
 import { getFeaturedJobs, getJobCountBySector } from '@/lib/actions/jobs';
 import { SECTORS } from '@/lib/constants/jobs';
 import { LandingSearch } from '@/components/jobs/LandingSearch';
-import { FeaturedJobCard } from '@/components/jobs/FeaturedJobCard';
+import { JobListRow } from '@/components/jobs/JobListRow';
 import type { Locale } from '@/lib/i18n';
 import type { Metadata } from 'next';
 
@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
   return {
     title: 'MatchPoint AI — Find Your Perfect Job, Matched by Intelligence',
-    description: 'AI-powered job board. Upload your CV once and get automatically matched to roles across Technology, Finance, Healthcare and more. No forms, no keyword hunting — pure intelligence.',
+    description: 'AI-powered job board. Upload your CV once and get automatically matched to roles across Technology, Finance, Healthcare and more.',
     openGraph: {
       title: 'MatchPoint AI — Jobs Matched by Intelligence',
       description: 'The AI job board that finds the right fit — not just keywords.',
@@ -22,44 +22,41 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const STATS = [
-  { value: '12,400+', label: 'Active jobs' },
-  { value: '340+',    label: 'Companies hiring' },
-  { value: '94%',     label: 'Match accuracy' },
-  { value: '48h',     label: 'Avg. to first interview' },
+const HOW_ITEMS = [
+  {
+    step: '01',
+    title: 'Upload your CV',
+    body: 'Claude Sonnet 4.6 extracts every skill, role, and achievement in seconds. No forms.',
+  },
+  {
+    step: '02',
+    title: 'AI scores every job',
+    body: 'Hard Skills · Experience · Culture · Logistics — four real dimensions, not keyword counts.',
+  },
+  {
+    step: '03',
+    title: 'See your match %',
+    body: 'Every listing shows your personal AI match score. Sort, filter, and apply with one click.',
+  },
+  {
+    step: '04',
+    title: 'Employer gets notified',
+    body: 'When you hit ≥90%, the system alerts the recruiter automatically. No chasing needed.',
+  },
 ];
 
-const WHY_ITEMS = [
-  {
-    icon: '◈',
-    title: 'AI reads your CV in 8 seconds',
-    body: 'Upload once. Claude Sonnet 4.6 extracts every skill, role and achievement — no forms, no manual tagging.',
-  },
-  {
-    icon: '◎',
-    title: 'Scored across 4 real dimensions',
-    body: 'Hard Skills · Experience · Culture · Logistics. Every role gets a weighted score, not a keyword count.',
-  },
-  {
-    icon: '◉',
-    title: 'Automated pipeline — you just show up',
-    body: 'When you clear 90%+ the system notifies the employer automatically. No chasing, no follow-ups.',
-  },
-  {
-    icon: '⬡',
-    title: 'Employers only see ready candidates',
-    body: 'Companies using MatchPoint receive pre-screened, scored profiles — cutting hiring time by 70%.',
-  },
-];
+const TRUST_LOGOS = ['Accenture', 'Deloitte', 'Roche', 'Siemens', 'Nestlé', 'ABB', 'Swiss Re', 'UBS'];
 
 export default async function LandingPage({ params }: Props) {
   const { locale: raw } = await params;
   const locale = (['en', 'es', 'de'].includes(raw) ? raw : 'es') as Locale;
 
   const [featuredJobs, sectorCounts] = await Promise.all([
-    getFeaturedJobs(6),
+    getFeaturedJobs(8),
     getJobCountBySector(),
   ]);
+
+  const totalJobs = Object.values(sectorCounts).reduce((a, b) => a + b, 0);
 
   return (
     <>
@@ -68,128 +65,162 @@ export default async function LandingPage({ params }: Props) {
         <div className="ambient-glow" />
 
         {/* ── Hero ── */}
-        <section className="relative flex flex-col items-center justify-center min-h-[88vh] text-center px-6 pt-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/20 bg-accent/5 mb-8">
+        <section className="relative flex flex-col items-center justify-center min-h-[82vh] text-center px-6 pt-20">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-accent/25 bg-accent/8 mb-7">
             <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs font-medium text-accent tracking-wider uppercase">AI-Powered · All Sectors · Daily Fresh Jobs</span>
+            <span className="text-[11px] font-medium text-accent tracking-wider uppercase">
+              AI-Powered · {totalJobs > 0 ? `${totalJobs}+ jobs` : 'Real market jobs'} · Daily updates
+            </span>
           </div>
 
-          <h1 className="font-display text-[clamp(2.8rem,7vw,5.5rem)] font-normal tracking-tight leading-[1.05] max-w-[960px] mb-5">
+          <h1 className="font-display text-[clamp(2.6rem,6.5vw,5rem)] font-normal tracking-tight leading-[1.06] max-w-[880px] mb-5">
             Find your next role<br />
             <span className="text-accent">matched by intelligence</span>
           </h1>
 
-          <p className="text-[clamp(1rem,2vw,1.2rem)] text-text-muted max-w-[580px] leading-relaxed mb-10 font-light">
-            Browse thousands of jobs across every sector. Upload your CV once — AI scores every role and surfaces only the positions where you genuinely fit.
+          <p className="text-[clamp(0.95rem,1.8vw,1.1rem)] text-text-muted max-w-[540px] leading-relaxed mb-9 font-light">
+            Real jobs from the Swiss & European market. Upload your CV once — AI scores every role
+            and shows your personal match percentage on every listing.
           </p>
 
-          {/* Search bar */}
           <LandingSearch locale={locale} />
 
-          {/* Stats strip */}
-          <div className="mt-14 flex items-center gap-8 flex-wrap justify-center">
-            {STATS.map((s) => (
-              <div key={s.label} className="flex flex-col items-center gap-1">
+          {/* Stats */}
+          <div className="mt-12 flex items-center gap-10 flex-wrap justify-center">
+            {[
+              { value: `${totalJobs > 0 ? totalJobs : 50}+`, label: 'Market jobs' },
+              { value: '10', label: 'Sectors' },
+              { value: '94%', label: 'Match accuracy' },
+              { value: '48h', label: 'Avg. to interview' },
+            ].map((s) => (
+              <div key={s.label} className="flex flex-col items-center gap-0.5">
                 <span className="font-mono text-2xl font-semibold text-accent">{s.value}</span>
-                <span className="text-xs text-text-dim uppercase tracking-widest">{s.label}</span>
+                <span className="text-[10px] text-text-dim uppercase tracking-widest">{s.label}</span>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── Sector Categories ── */}
-        <section className="relative max-w-[1200px] mx-auto px-6 py-20">
-          <p className="text-xs uppercase tracking-widest text-text-dim text-center mb-3">Browse by sector</p>
-          <h2 className="font-display text-3xl font-normal text-center mb-10 tracking-tight">Every industry, one platform</h2>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {SECTORS.map((sector) => {
-              const count = sectorCounts[sector.key] ?? 0;
-              return (
-                <a
-                  key={sector.key}
-                  href={`/${locale}/jobs?sector=${sector.key}`}
-                  className="glass rounded-xl p-5 flex flex-col items-center gap-2 text-center hover:border-accent/30 transition-all group"
-                >
-                  <span className="text-3xl group-hover:scale-110 transition-transform">{sector.icon}</span>
-                  <span className="text-sm font-medium text-text group-hover:text-accent transition-colors">{sector.label}</span>
-                  {count > 0 && (
-                    <span className="text-xs text-text-dim font-mono">{count} jobs</span>
-                  )}
-                </a>
-              );
-            })}
+        {/* ── Sector navigation ── */}
+        <section className="border-y border-border-subtle bg-surface/30">
+          <div className="max-w-[1200px] mx-auto px-6">
+            <div className="flex items-center overflow-x-auto gap-0 scrollbar-hide">
+              {SECTORS.map((s) => {
+                const count = sectorCounts[s.key] ?? 0;
+                return (
+                  <a
+                    key={s.key}
+                    href={`/${locale}/jobs?sector=${s.key}`}
+                    className="flex-shrink-0 flex flex-col items-center gap-1 px-5 py-4 border-r border-border-subtle hover:bg-accent/5 transition-colors group"
+                  >
+                    <span className="text-xl group-hover:scale-110 transition-transform">{s.icon}</span>
+                    <span className="text-[11px] font-medium text-text-muted group-hover:text-accent transition-colors whitespace-nowrap">
+                      {s.label}
+                    </span>
+                    {count > 0 && (
+                      <span className="text-[9px] text-text-dim font-mono">{count} jobs</span>
+                    )}
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </section>
 
-        {/* ── Featured Jobs ── */}
+        {/* ── Latest jobs (list style) ── */}
         {featuredJobs.length > 0 && (
-          <section className="relative max-w-[1200px] mx-auto px-6 py-12">
-            <div className="flex items-center justify-between mb-8">
+          <section className="max-w-[1000px] mx-auto px-6 py-16">
+            <div className="flex items-baseline justify-between mb-5">
               <div>
-                <p className="text-xs uppercase tracking-widest text-text-dim mb-1">Latest openings</p>
-                <h2 className="font-display text-3xl font-normal tracking-tight">Today&apos;s featured jobs</h2>
+                <h2 className="font-display text-2xl font-normal tracking-tight">Latest openings</h2>
+                <p className="text-xs text-text-dim mt-0.5">Real positions updated daily from the market</p>
               </div>
-              <a href={`/${locale}/jobs`} className="text-sm text-accent hover:text-accent-hover transition-colors flex items-center gap-1">
-                View all
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <a
+                href={`/${locale}/jobs`}
+                className="text-xs text-accent hover:text-accent-hover transition-colors flex items-center gap-1"
+              >
+                View all jobs
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M2.5 6h7M7 3.5L9.5 6 7 8.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="border border-border-subtle rounded-xl overflow-hidden">
               {featuredJobs.map((job) => (
-                <FeaturedJobCard key={job.id} job={job} locale={locale} />
+                <JobListRow key={job.id} job={job} locale={locale} />
               ))}
+            </div>
+
+            <div className="mt-6 text-center">
+              <a
+                href={`/${locale}/upload`}
+                className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-accent transition-colors"
+              >
+                <span className="w-4 h-4 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-[9px]">+</span>
+                Upload your CV to unlock AI match scores on all listings
+              </a>
             </div>
           </section>
         )}
 
         {/* ── How it works ── */}
-        <section className="relative max-w-[900px] mx-auto px-6 py-24">
-          <p className="text-xs uppercase tracking-widest text-text-dim text-center mb-3">The process</p>
-          <h2 className="font-display text-3xl font-normal text-center mb-14 tracking-tight">
-            From CV to offer — fully automated
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {WHY_ITEMS.map((item, i) => (
-              <div key={i} className="glass rounded-xl p-7 flex flex-col gap-3">
-                <span className="text-2xl text-accent">{item.icon}</span>
-                <h3 className="font-display text-lg font-normal">{item.title}</h3>
-                <p className="text-sm text-text-muted leading-relaxed">{item.body}</p>
-              </div>
-            ))}
+        <section className="border-t border-border-subtle py-16">
+          <div className="max-w-[1000px] mx-auto px-6">
+            <h2 className="font-display text-2xl font-normal tracking-tight text-center mb-10">
+              From CV upload to offer — fully automated
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border-subtle border border-border-subtle rounded-xl overflow-hidden">
+              {HOW_ITEMS.map((item) => (
+                <div key={item.step} className="bg-surface p-6 flex flex-col gap-3">
+                  <span className="font-mono text-xs text-accent/60">{item.step}</span>
+                  <h3 className="font-display text-base font-normal text-text">{item.title}</h3>
+                  <p className="text-sm text-text-muted leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* ── Social proof / trust ── */}
-        <section className="relative max-w-[1000px] mx-auto px-6 py-16">
-          <div className="glass rounded-2xl p-10 md:p-14 text-center">
-            <p className="text-xs uppercase tracking-widest text-text-dim mb-4">Trusted by leading companies</p>
-            <div className="flex flex-wrap justify-center gap-8 mb-10 opacity-40">
-              {['Accenture', 'Deloitte', 'Santander', 'Roche', 'Siemens', 'Nestlé'].map((co) => (
-                <span key={co} className="font-display text-lg text-text">{co}</span>
+        {/* ── Trust logos ── */}
+        <section className="border-t border-border-subtle py-12">
+          <div className="max-w-[1000px] mx-auto px-6">
+            <p className="text-[10px] uppercase tracking-widest text-text-dim text-center mb-6">
+              Companies using MatchPoint
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-10 gap-y-4">
+              {TRUST_LOGOS.map((co) => (
+                <span key={co} className="font-display text-sm text-text-dim/40">{co}</span>
               ))}
             </div>
-            <h2 className="font-display text-3xl font-normal tracking-tight mb-4">
+          </div>
+        </section>
+
+        {/* ── Dual CTA ── */}
+        <section className="border-t border-border-subtle py-16">
+          <div className="max-w-[800px] mx-auto px-6 text-center">
+            <h2 className="font-display text-3xl font-normal tracking-tight mb-3">
               Ready to find your perfect match?
             </h2>
-            <p className="text-text-muted mb-8 max-w-[480px] mx-auto leading-relaxed">
-              Join 40,000+ professionals who let AI do the heavy lifting. Upload your CV and get your first matches in under 2 minutes.
+            <p className="text-text-muted mb-8 max-w-[440px] mx-auto text-sm leading-relaxed">
+              Upload your CV and get your first AI-scored matches in under 2 minutes.
+              No account needed to browse — sign up only to apply.
             </p>
             <div className="flex items-center gap-4 justify-center flex-wrap">
-              <a href={`/${locale}/signup`}
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg bg-accent text-base font-medium hover:bg-accent-hover transition-all shadow-[0_0_30px_rgba(245,158,11,0.2)]">
+              <a
+                href={`/${locale}/signup`}
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-lg bg-accent text-base-dark font-medium hover:bg-accent-hover transition-all"
+              >
                 Get started free
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
-              <a href={`/${locale}/employer`}
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg border border-border text-text-muted hover:text-text hover:border-text-dim transition-all">
-                I&apos;m an employer →
+              <a
+                href={`/${locale}/employer`}
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-lg border border-border text-text-muted hover:text-text hover:border-text-dim transition-all text-sm"
+              >
+                For employers →
               </a>
             </div>
           </div>
@@ -200,41 +231,47 @@ export default async function LandingPage({ params }: Props) {
           <div className="max-w-[1200px] mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
               <div>
-                <p className="font-display text-sm text-text-dim mb-3">For Candidates</p>
+                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">For Candidates</p>
                 <div className="flex flex-col gap-2">
-                  {['Browse Jobs', 'Upload CV', 'My Matches', 'Applications'].map((l) => (
-                    <a key={l} href="#" className="text-xs text-text-dim hover:text-text-muted transition-colors">{l}</a>
+                  <a href={`/${locale}/jobs`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Browse Jobs</a>
+                  <a href={`/${locale}/upload`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Upload CV</a>
+                  <a href={`/${locale}/matches`} className="text-xs text-text-dim hover:text-text-muted transition-colors">My Matches</a>
+                  <a href={`/${locale}/applications`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Applications</a>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">For Employers</p>
+                <div className="flex flex-col gap-2">
+                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Post a Job</a>
+                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">AI Screening</a>
+                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Pricing</a>
+                  <a href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">Enterprise</a>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">Sectors</p>
+                <div className="flex flex-col gap-2">
+                  {SECTORS.slice(0, 5).map((s) => (
+                    <a key={s.key} href={`/${locale}/jobs?sector=${s.key}`} className="text-xs text-text-dim hover:text-text-muted transition-colors">
+                      {s.icon} {s.label}
+                    </a>
                   ))}
                 </div>
               </div>
               <div>
-                <p className="font-display text-sm text-text-dim mb-3">For Employers</p>
+                <p className="text-xs font-medium text-text-dim mb-3 uppercase tracking-wider">More Sectors</p>
                 <div className="flex flex-col gap-2">
-                  {['Post a Job', 'AI Screening', 'Pricing', 'Enterprise'].map((l) => (
-                    <a key={l} href={`/${locale}/employer`} className="text-xs text-text-dim hover:text-text-muted transition-colors">{l}</a>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="font-display text-sm text-text-dim mb-3">Sectors</p>
-                <div className="flex flex-col gap-2">
-                  {SECTORS.slice(0, 4).map((s) => (
-                    <a key={s.key} href={`/${locale}/jobs?sector=${s.key}`} className="text-xs text-text-dim hover:text-text-muted transition-colors">{s.label}</a>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="font-display text-sm text-text-dim mb-3">Company</p>
-                <div className="flex flex-col gap-2">
-                  {['About', 'Privacy', 'Terms', 'Contact'].map((l) => (
-                    <a key={l} href="#" className="text-xs text-text-dim hover:text-text-muted transition-colors">{l}</a>
+                  {SECTORS.slice(5).map((s) => (
+                    <a key={s.key} href={`/${locale}/jobs?sector=${s.key}`} className="text-xs text-text-dim hover:text-text-muted transition-colors">
+                      {s.icon} {s.label}
+                    </a>
                   ))}
                 </div>
               </div>
             </div>
             <div className="border-t border-border-subtle pt-6 flex flex-wrap items-center justify-between gap-3">
               <span className="font-display text-sm text-text-dim">MatchPoint AI</span>
-              <span className="text-xs text-text-dim">Built with Claude Sonnet 4.6 · Next.js · Supabase · © 2025</span>
+              <span className="text-xs text-text-dim">Powered by Claude Sonnet 4.6 · Next.js · Supabase · © 2026</span>
             </div>
           </div>
         </footer>
