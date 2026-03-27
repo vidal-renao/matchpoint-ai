@@ -9,6 +9,23 @@
     "back": "Go back",
     "noData": "No data available"
   },
+  "nav": {
+    "jobs": "Jobs",
+    "myMatches": "My Matches",
+    "applications": "Applications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "signIn": "Sign in",
+    "getStarted": "Get started",
+    "signOut": "Sign out",
+    "agencyPortal": "Agency Portal",
+    "agencyOnly": "Agencies only — Register",
+    "forAgencies": "For Agencies",
+    "agencyMember": "Agency member",
+    "dashboard": "Dashboard",
+    "postJob": "Post Job",
+    "jobBoard": "Job Board"
+  },
   "upload": {
     "title": "Upload your CV",
     "subtitle": "Our AI will analyze your profile in seconds",

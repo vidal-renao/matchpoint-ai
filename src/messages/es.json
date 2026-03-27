@@ -9,6 +9,23 @@
     "back": "Volver",
     "noData": "Sin datos disponibles"
   },
+  "nav": {
+    "jobs": "Empleos",
+    "myMatches": "Mis Matches",
+    "applications": "Candidaturas",
+    "profile": "Perfil",
+    "settings": "Ajustes",
+    "signIn": "Iniciar sesión",
+    "getStarted": "Empezar",
+    "signOut": "Cerrar sesión",
+    "agencyPortal": "Portal de Agencia",
+    "agencyOnly": "Solo para agencias — Registrarse",
+    "forAgencies": "Para Agencias",
+    "agencyMember": "Miembro de agencia",
+    "dashboard": "Panel",
+    "postJob": "Publicar empleo",
+    "jobBoard": "Bolsa de empleo"
+  },
   "upload": {
     "title": "Sube tu CV",
     "subtitle": "Nuestra IA analizará tu perfil en segundos",

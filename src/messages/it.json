@@ -9,6 +9,23 @@
     "back": "Indietro",
     "noData": "Nessun dato disponibile"
   },
+  "nav": {
+    "jobs": "Offerte",
+    "myMatches": "I miei Match",
+    "applications": "Candidature",
+    "profile": "Profilo",
+    "settings": "Impostazioni",
+    "signIn": "Accedi",
+    "getStarted": "Inizia",
+    "signOut": "Esci",
+    "agencyPortal": "Portale Agenzia",
+    "agencyOnly": "Solo agenzie — Registrati",
+    "forAgencies": "Per Agenzie",
+    "agencyMember": "Membro agenzia",
+    "dashboard": "Dashboard",
+    "postJob": "Pubblica offerta",
+    "jobBoard": "Bacheca lavoro"
+  },
   "upload": {
     "title": "Carica il tuo CV",
     "subtitle": "La nostra IA analizzerà il tuo profilo in pochi secondi",

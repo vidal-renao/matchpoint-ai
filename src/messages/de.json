@@ -9,6 +9,23 @@
     "back": "Zurück",
     "noData": "Keine Daten verfügbar"
   },
+  "nav": {
+    "jobs": "Stellen",
+    "myMatches": "Meine Matches",
+    "applications": "Bewerbungen",
+    "profile": "Profil",
+    "settings": "Einstellungen",
+    "signIn": "Anmelden",
+    "getStarted": "Loslegen",
+    "signOut": "Abmelden",
+    "agencyPortal": "Agentur-Portal",
+    "agencyOnly": "Nur für Agenturen — Registrieren",
+    "forAgencies": "Für Agenturen",
+    "agencyMember": "Agenturmitglied",
+    "dashboard": "Dashboard",
+    "postJob": "Stelle veröffentlichen",
+    "jobBoard": "Stellenbörse"
+  },
   "upload": {
     "title": "Lebenslauf hochladen",
     "subtitle": "Unsere KI analysiert dein Profil in Sekunden",
