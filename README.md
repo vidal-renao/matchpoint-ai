@@ -2,9 +2,9 @@
 
 # MatchPoint AI
 
-### The AI-Native Recruitment Platform
+### AI-Assisted Recruitment Prototype
 
-**Upload a CV. Get scored against every open role. Hire only the candidates who genuinely fit.**
+**Explore CV extraction, explainable match scores and recruitment workflow design.**
 
 [![Next.js](https://img.shields.io/badge/Next.js_16-black?logo=next.js)](https://nextjs.org)
 [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?logo=supabase&logoColor=white)](https://supabase.com)
@@ -13,7 +13,7 @@
 [![Vercel](https://img.shields.io/badge/Deployed_on_Vercel-black?logo=vercel)](https://vercel.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-[Live Demo](#) · [Documentation](docs/) · [Report a Bug](https://github.com/vidal-renao/matchpoint-ai/issues) · [Request a Feature](https://github.com/vidal-renao/matchpoint-ai/issues)
+[Documentation](docs/) · [Report a Bug](https://github.com/vidal-renao/matchpoint-ai/issues) · [Request a Feature](https://github.com/vidal-renao/matchpoint-ai/issues)
 
 </div>
 
@@ -21,15 +21,14 @@
 
 ## What is MatchPoint AI?
 
-MatchPoint AI is a **B2B SaaS recruitment platform** that replaces the traditional resume-screening bottleneck with a fully automated AI pipeline.
+MatchPoint AI is a recruitment portfolio prototype exploring CV extraction, job matching and application tracking.
 
-A candidate uploads their CV **once**. Claude Sonnet 4.6 extracts every skill, role, achievement, and nuance in seconds. The engine then scores that candidate against **every open position** across four real dimensions — not keyword matches. Recruiters receive only the candidates who cleared 90%+, pre-ranked, with a full score breakdown and WhatsApp alert.
+**Status:** development prototype. The roadmap below distinguishes completed work from planned agency onboarding, employer posting and billing. No current public demo is linked.
 
-No more reading 200 CVs manually. No more mismatches. No more ghost candidates.
+Match scores are model-generated workflow signals, not validated probabilities of hiring success or candidate suitability. Recruitment decisions require human assessment. Integration behavior depends on configured providers and the deployed environment.
 
 ```
-Candidate uploads CV → Claude extracts profile → Engine scores all jobs →
-Recruiter gets WhatsApp alert → "Ready to Sign" in one click
+CV upload → Structured profile → Job match explanation → Human review
 ```
 
 ---
@@ -37,7 +36,7 @@ Recruiter gets WhatsApp alert → "Ready to Sign" in one click
 ## Key Features
 
 ### For Candidates
-- **CV upload** — PDF or image; Claude extracts full structured profile in ~8 seconds
+- **CV upload** — PDF or image; Claude extracts full structured profile (processing time depends on the provider and input)
 - **AI match scores** — see your personal match % next to every job listing, live
 - **4-dimension scoring** — Hard Skills · Experience · Culture Fit · Logistics (location, salary, remote)
 - **Applications pipeline** — Kanban view of every application's status
@@ -46,24 +45,24 @@ Recruiter gets WhatsApp alert → "Ready to Sign" in one click
 - **Automatic notifications** — email when you hit ≥90% on any role
 
 ### For Recruiters / Agencies
-- **Recruiter Dashboard** — see only elite candidates (≥90% match), zero noise
+- **Recruiter Dashboard** — review candidates above the configured score threshold
 - **Job filter** — select any open position and see its ranked candidate list instantly
 - **WhatsApp deep link** — contact a candidate directly from the dashboard with a pre-filled message
 - **Ready to Sign** — update application stage to `offer_sent` in one click
 - **AI verdict + score breakdown** — Hard Skills, Experience, Culture, Logistics bars per candidate
-- **Multi-tenant workspaces** — each agency sees only their own jobs and candidates
+- **Agency isolation groundwork** — schema and RLS work; onboarding and workspace UI remain on the roadmap
 
-### For Employers (B2B Portal)
+### Planned Employer Features
 - Self-serve job posting — no engineering needed
 - Branded candidate portal — white-label ready
 - Pricing tiers — Starter €149/mo · Growth €399/mo · Enterprise custom
 
 ### Platform
 - **Multi-sector job board** — Technology, Finance, Healthcare, Engineering, Legal, Marketing, Construction, Education, Hospitality, Logistics
-- **Real market jobs** — Indeed Switzerland integration (50+ live roles from Microsoft, Apple, Roche, Deutsche Bank, ABB, and more)
+- **Job data examples** — Swiss market job records; ongoing live Indeed synchronization remains on the roadmap
 - **i18n** — Spanish · English · German
 - **SEO-ready** — JSON-LD JobPosting schema, sitemap, robots.txt
-- **Google Jobs eligible** — structured data on every job detail page
+- **JobPosting structured data** — included on job detail pages; search inclusion is not guaranteed
 
 ---
 
@@ -313,27 +312,11 @@ matchpoint-ai/
 
 ---
 
-## Competitive Positioning
+## Scope & data handling
 
-| Platform | AI Matching | Candidate Score Visibility | WhatsApp Alerts | Price |
-|---|---|---|---|---|
-| **MatchPoint AI** | ✅ Claude Sonnet 4.6 | ✅ Live % on every listing | ✅ Auto at ≥90% | €149/mo |
-| Manatal | Partial (keyword) | ❌ | ❌ | $35/user/mo |
-| Recruitee | ❌ | ❌ | ❌ | €199/mo |
-| Teamtailor | ❌ | ❌ | ❌ | €150/mo |
-| Greenhouse | Partial | ❌ | ❌ | >€500/mo |
-| Indeed | ❌ | ❌ | ❌ | Pay-per-click |
+This prototype explores candidate-visible match explanations and recruiter workflows. No competitor comparison, measured workload reduction or legal compliance certification is claimed.
 
-**Key differentiator:** MatchPoint is the only platform where candidates see their personal AI match score (0–100%) next to every job — creating a feedback loop that improves application quality and reduces recruiter workload by up to 70%.
-
----
-
-## Legal & Compliance
-
-- **GDPR compliant** — candidate data stored in Supabase (EU region), Row Level Security enabled on all tables, right-to-deletion supported via `deleted_at` soft deletes
-- **Data processor model** — when sold to agencies, MatchPoint acts as data processor; the agency is the data controller. A standard DPA template is included in `docs/DPA_TEMPLATE.md`
-- **Job data** — real jobs displayed with attribution and direct links to original source (Indeed). No full descriptions scraped without license.
-- **No staffing license required** — MatchPoint is a software tool, not a staffing agency. Placement decisions are made by the agency client.
+The project documents access-control and deletion-related mechanisms. Soft deletion alone is not evidence of complete data erasure. Review provider configuration, retention and operational controls before using real candidate data.
 
 ---
 
@@ -358,7 +341,9 @@ Claude API usage is subject to [Anthropic's usage policies](https://www.anthropi
 
 ## Author
 
-**Max Vidal** — Full-stack developer building AI-native products.
+**Vidal Reñao Lopelo** — IT Systems Administrator & Full-Stack Developer.
+
+[Portfolio](https://vidal-pro-portfolio.vercel.app/en) · [LinkedIn](https://www.linkedin.com/in/vidalrenao/)
 
 Built end-to-end with [Claude Code](https://claude.ai/code) — Anthropic's AI software engineering CLI.
 
@@ -366,7 +351,7 @@ Built end-to-end with [Claude Code](https://claude.ai/code) — Anthropic's AI s
 
 <div align="center">
 
-*MatchPoint AI — From CV upload to signed offer, fully automated.*
+*MatchPoint AI — Recruitment workflow exploration with human review.*
 
 **⭐ Star this repo** if it was useful · **🐛 [Report issues](https://github.com/vidal-renao/matchpoint-ai/issues)**
 
