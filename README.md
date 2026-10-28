@@ -11,7 +11,6 @@
 [![Claude AI](https://img.shields.io/badge/Claude_Sonnet_4.6-D97706?logo=anthropic&logoColor=white)](https://anthropic.com)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![Vercel](https://img.shields.io/badge/Deployed_on_Vercel-black?logo=vercel)](https://vercel.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 [Documentation](docs/) · [Report a Bug](https://github.com/vidal-renao/matchpoint-ai/issues) · [Request a Feature](https://github.com/vidal-renao/matchpoint-ai/issues)
 
@@ -333,7 +332,7 @@ npm run build      # Next.js build — must succeed
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+No standalone LICENSE file is currently included. Contact the author for licensing information.
 
 Claude API usage is subject to [Anthropic's usage policies](https://www.anthropic.com/policies/usage).
 
